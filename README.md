@@ -1,7 +1,11 @@
 # Template sharing
 
-List of the actuel shared templates :
-* [Contribution guidelines for this project](agenda/programmation-par-mois/template.md)
+Syracuse allows advanced customization of the display of documents within its CMS.
+
+This repository makes it possible to share display templates between Syracuse users.
+
+List of current shared templates :
+* [Display agenda events by month](agenda/programmation-par-mois/template.md)
 
 
 # How to contribute
