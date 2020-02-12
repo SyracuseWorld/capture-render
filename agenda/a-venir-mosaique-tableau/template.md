@@ -13,7 +13,7 @@ This template display events in a month view tabs.
 
 ## Preview
 
-![alt text](https://github.com/SyracuseWorld/capture-render/blob/master/agenda/a-venir-mosaique-tableau/preview.png "Démo")
+![alt text](https://github.com/SyracuseWorld/capture-render/blob/master/agenda/a-venir-mosaique-tableau/template.png "Démo")
 
 
 ## HTML
