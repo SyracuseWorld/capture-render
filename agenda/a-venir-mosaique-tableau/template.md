@@ -13,324 +13,154 @@ This template display events in a month view tabs.
 
 ## Preview
 
-![alt text](https://github.com/SyracuseWorld/capture-render/blob/master/agenda/programmation-par-mois/preview.png "Démo")
+![alt text](https://github.com/SyracuseWorld/capture-render/blob/master/agenda/a-venir-mosaique-tableau/preview.png "Démo")
 
 
 ## HTML
 ```html
 
- <div class="container-fluid">
-
- <!-- Nav tabs -->
- <ul class="nav nav-tabs" role="tablist">
- <li role="presentation" class="active"><a href="#decembre" aria-controls="decembre" role="tab" data-toggle="tab">Déc</a></li>
- <li role="presentation"><a href="#janvier" aria-controls="janvier" role="tab" data-toggle="tab">Janv</a></li>
- <li role="presentation"><a href="#fevrier" aria-controls="fevrier" role="tab" data-toggle="tab">Févr</a></li>
- <li role="presentation"><a href="#mars" aria-controls="mars" role="tab" data-toggle="tab">Mars</a></li>
- <li role="presentation"><a href="#avril" aria-controls="avril" role="tab" data-toggle="tab">Avr</a></li>
- <li role="presentation"><a href="#mai" aria-controls="mai" role="tab" data-toggle="tab">Mai</a></li>
- <li role="presentation"><a href="#juin" aria-controls="juin" role="tab" data-toggle="tab">Juin</a></li>
- <li role="presentation"><a href="#juillet" aria-controls="juillet" role="tab" data-toggle="tab">Juil</a></li>
- <li role="presentation"><a href="#aout" aria-controls="aout" role="tab" data-toggle="tab">Août</a></li>
- <li role="presentation"><a href="#septembre" aria-controls="septembre" role="tab" data-toggle="tab">Sept</a></li>
- <li role="presentation"><a href="#octobre" aria-controls="octobre" role="tab" data-toggle="tab">Oct</a></li>
- <li role="presentation"><a href="#novembre" aria-controls="novembre" role="tab" data-toggle="tab">Nov</a></li>
- </ul>
-
- <!-- Tab panes -->
- <div class="tab-content">
- 
- <div role="tabpanel" class="tab-pane active" id="decembre">
-
+ <div class="events-cards-content">
  #foreach($result in $results)
- #if($result.MonthYear_exact.Join(",").Contains("date|yyyyMM|Y|201912"))
- <a href="$result.FriendlyUrl" title="En savoir plus sur $!result.Title">
- <div class="card col-sm-3">
- <img src="$!result.LargeThumbnail" class="card-img-top" alt="">
- <div class="card-body">
- <h5 class="card-title">$result.Title.Substring(0,40,'...')</h5>
- <p class="event-topic"><i class="fas fa-tag"></i>$!result.SubjectTopic_exact</p>
-
- <p class="card-text"><i class="fas fa-calendar-alt"></i>Du $!result.DateStart au $!result.DateEnd</p>
- 
+<a href="$result.FriendlyUrl" title="En savoir plus sur $result.REOF_EvenTitle">
+ <!--div class="event-card" style="background-image:url($result.ThumbMedium);
+ background-repeat:no-repeat;
+ background-size:cover;"-->
+ <div class="event-card" style="background-image:url(/Ils/digitalCollection/DigitalCollectionThumbnailHandler.ashx?documentId=$result.DigitalReadyThumbnailIdentifier&fallback=http%3a%2f%2fwww.franceoperas.fr%2fui%2fskins%2fdefault%2fportal%2ffront%2fimages%2fGeneral%2fDocType%2fEVEN_LARGE.png&size=LARGE);
+ background-repeat:no-repeat;
+ background-size:cover;">
+#if("$result.REOF_EvenIsPremiere"=="Oui") 
+ <div class="event-card-premiere">Première</div>
+#elseif("$result.REOF_ProdHistory"=="Nouvelle production") 
+ <div class="event-card-new">$!result.REOF_ProdHistory</div>
+#elseif("$result.REOF_ProdHistory"=="Création") 
+ <div class="event-card-creation">$result.REOF_ProdHistory</div>
+#end
+ <div class="event-card-title troncate">$!result.REOF_EvenTitle.Substring(0,55,'...')</div>
+#if("$!result.REOF_EvenOeuvreComp"!="") 
+ <div class="event-card-comp">$!result.REOF_EvenOeuvreComp</div>
+#end
+ <div class="event-card-author">$!result.REOF_EvenProductionAuthor</div>
+ <div class="event-card-location">$!result.REOF_EvenLocation</div>
+ <div class="event-card-date">$result.REOF_EvenShortDate</div>
+ <div class="event-card-hour">$!result.REOF_EvenWhenStart </div>
+ <div class="event-card-type">$!result.REOF_EvenType </div> 
  </div>
- </div>
- </a>
+</a> 
  #end
- #end
- </div>
- 
-
- <div role="tabpanel" class="tab-pane" id="janvier">
-
- #foreach($result in $results)
- #if($result.MonthYear_exact.Join(",").Contains("date|yyyyMM|Y|202001"))
- <a href="$result.FriendlyUrl" title="En savoir plus sur $!result.Title">
- <div class="card col-sm-3">
- <img src="$!result.LargeThumbnail" class="card-img-top" alt="">
- <div class="card-body">
- <h5 class="card-title">$result.Title.Substring(0,40,'...')</h5>
- #if ($result.DateStart == $result.DateEnd)
- <p class="card-text"><i class="fas fa-calendar-alt"></i>Du $result.DateStart au $result.DateEnd</p>
- #else
- <p class="card-text"><i class="fas fa-calendar-alt"></i>Le $result.DateStart</p>#end
- 
- 
-</div>
- </div>
- </a>
- #end
- #end
- </div>
- <div role="tabpanel" class="tab-pane" id="fevrier"> <div class="events next-events">
-
- #foreach($result in $results)
- #if($result.MonthYear_exact == "date|yyyyMM|Y|202002")
- <a href="$result.FriendlyUrl" title="En savoir plus sur $!result.Title">
- <div class="card col-sm-3">
- <img src="$!result.LargeThumbnail" class="card-img-top" alt="">
- <div class="card-body">
- <h5 class="card-title">$result.Title.Substring(0,40,'...')</h5>
- #if ($result.DateStart == $result.DateEnd)
- <p class="card-text"><i class="fas fa-calendar-alt"></i>Du $result.DateStart au $result.DateEnd</p>
- #else
- <p class="card-text"><i class="fas fa-calendar-alt"></i>Le $result.DateStart</p>#end
- 
- 
- </div>
- </div>
- </a>
- #end
- #end
- </div>
- <div role="tabpanel" class="tab-pane" id="mars"> #foreach($result in $results)
- #if($result.MonthYear_exact == "date|yyyyMM|Y|202003")
- <a href="$result.FriendlyUrl" title="En savoir plus sur $!result.Title">
- <div class="card col-sm-3">
- <img src="$!result.LargeThumbnail" class="card-img-top" alt="">
- <div class="card-body">
- <h5 class="card-title">$result.Title.Substring(0,40,'...')</h5>
- #if ($result.DateStart == $result.DateEnd)
- <p class="card-text"><i class="fas fa-calendar-alt"></i>Du $result.DateStart au $result.DateEnd</p>
- #else
- <p class="card-text"><i class="fas fa-calendar-alt"></i>Le $result.DateStart</p>#end
- 
- 
- </div>
- </div>
- </a>
- #end
- #end</div>
- <div role="tabpanel" class="tab-pane" id="avril"> #foreach($result in $results)
- #if($result.MonthYear_exact == "date|yyyyMM|Y|202004")
- <a href="$result.FriendlyUrl" title="En savoir plus sur $!result.Title">
- <div class="card col-sm-3">
- <img src="$!result.LargeThumbnail" class="card-img-top" alt="">
- <div class="card-body">
- <h5 class="card-title">$result.Title.Substring(0,40,'...')</h5>
- #if ($result.DateStart == $result.DateEnd)
- <p class="card-text"><i class="fas fa-calendar-alt"></i>Du $result.DateStart au $result.DateEnd</p>
- #else
- <p class="card-text"><i class="fas fa-calendar-alt"></i>Le $result.DateStart</p>#end
- 
- 
- </div>
- </div>
- </a>
- #end
- #end</div>
- <div role="tabpanel" class="tab-pane" id="mai"> #foreach($result in $results)
- #if($result.MonthYear_exact == "date|yyyyMM|Y|202005")
- <a href="$result.FriendlyUrl" title="En savoir plus sur $!result.Title">
- <div class="card col-sm-3">
- <img src="$!result.LargeThumbnail" class="card-img-top" alt="">
- <div class="card-body">
- <h5 class="card-title">$result.Title.Substring(0,40,'...')</h5>
- #if ($result.DateStart == $result.DateEnd)
- <p class="card-text"><i class="fas fa-calendar-alt"></i>Du $result.DateStart au $result.DateEnd</p>
- #else
- <p class="card-text"><i class="fas fa-calendar-alt"></i>Le $result.DateStart</p>#end
- 
- 
- </div>
- </div>
- </a>
- #end
- #end</div>
- <div role="tabpanel" class="tab-pane" id="juin"> #foreach($result in $results)
- #if($result.MonthYear_exact == "date|yyyyMM|Y|202006")
- <a href="$result.FriendlyUrl" title="En savoir plus sur $!result.Title">
- <div class="card col-sm-3">
- <img src="$!result.LargeThumbnail" class="card-img-top" alt="">
- <div class="card-body">
- <h5 class="card-title">$result.Title.Substring(0,40,'...')</h5>
- #if ($result.DateStart == $result.DateEnd)
- <p class="card-text"><i class="fas fa-calendar-alt"></i>Du $result.DateStart au $result.DateEnd</p>
- #else
- <p class="card-text"><i class="fas fa-calendar-alt"></i>Le $result.DateStart</p>#end
- 
- 
- </div>
- </div>
- </a>
- #end
- #end</div>
- <div role="tabpanel" class="tab-pane" id="juillet"> #foreach($result in $results)
- #if($result.MonthYear_exact == "date|yyyyMM|Y|202007")
- <a href="$result.FriendlyUrl" title="En savoir plus sur $!result.Title">
- <div class="card col-sm-3">
- <img src="$!result.LargeThumbnail" class="card-img-top" alt="">
- <div class="card-body">
- <h5 class="card-title">$result.Title.Substring(0,40,'...')</h5>
- #if ($result.DateStart == $result.DateEnd)
- <p class="card-text"><i class="fas fa-calendar-alt"></i>Du $result.DateStart au $result.DateEnd</p>
- #else
- <p class="card-text"><i class="fas fa-calendar-alt"></i>Le $result.DateStart</p>#end
- 
- 
- </div>
- </div>
- </a>
- #end
- #end</div>
- <div role="tabpanel" class="tab-pane" id="aout"> #foreach($result in $results)
- #if($result.MonthYear_exact == "date|yyyyMM|Y|202008")
- <a href="$result.FriendlyUrl" title="En savoir plus sur $!result.Title">
- <div class="card col-sm-3">
- <img src="$!result.LargeThumbnail" class="card-img-top" alt="">
- <div class="card-body">
- <h5 class="card-title">$result.Title.Substring(0,40,'...')</h5>
- #if ($result.DateStart == $result.DateEnd)
- <p class="card-text"><i class="fas fa-calendar-alt"></i>Du $result.DateStart au $result.DateEnd</p>
- #else
- <p class="card-text"><i class="fas fa-calendar-alt"></i>Le $result.DateStart</p>#end
- 
- 
- </div>
- </div>
- </a>
- #end
- #end</div>
- <div role="tabpanel" class="tab-pane" id="septembre"> #foreach($result in $results)
- #if($result.MonthYear_exact == "date|yyyyMM|Y|202009")
- <a href="$result.FriendlyUrl" title="En savoir plus sur $!result.Title">
- <div class="card col-sm-3">
- <img src="$!result.LargeThumbnail" class="card-img-top" alt="">
- <div class="card-body">
- <h5 class="card-title">$result.Title.Substring(0,40,'...')</h5>
- #if ($result.DateStart == $result.DateEnd)
- <p class="card-text"><i class="fas fa-calendar-alt"></i>Du $result.DateStart au $result.DateEnd</p>
- #else
- <p class="card-text"><i class="fas fa-calendar-alt"></i>Le $result.DateStart</p>#end
- 
- 
- </div>
- </div>
- </a>
- #end
- #end</div>
- <div role="tabpanel" class="tab-pane" id="octobre"> #foreach($result in $results)
- #if($result.MonthYear_exact == "date|yyyyMM|Y|202010")
- <a href="$result.FriendlyUrl" title="En savoir plus sur $!result.Title">
- <div class="card col-sm-3">
- <img src="$!result.LargeThumbnail" class="card-img-top" alt="">
- <div class="card-body">
- <h5 class="card-title">$result.Title.Substring(0,40,'...')</h5>
- #if ($result.DateStart == $result.DateEnd)
- <p class="card-text"><i class="fas fa-calendar-alt"></i>Du $result.DateStart au $result.DateEnd</p>
- #else
- <p class="card-text"><i class="fas fa-calendar-alt"></i>Le $result.DateStart</p>#end
- 
- 
- </div>
- </div>
- </a>
- #end
- #end</div>
- <div role="tabpanel" class="tab-pane" id="novembre"> #foreach($result in $results)
- #if($result.MonthYear_exact == "date|yyyyMM|Y|202011")
- <a href="$result.FriendlyUrl" title="En savoir plus sur $!result.Title">
- <div class="card col-sm-3">
- <img src="$!result.LargeThumbnail" class="card-img-top" alt="">
- <div class="card-body">
- <h5 class="card-title">$result.Title.Substring(0,40,'...')</h5>
- #if ($result.DateStart == $result.DateEnd)
- <p class="card-text"><i class="fas fa-calendar-alt"></i>Du $result.DateStart au $result.DateEnd</p>
- #else
- <p class="card-text"><i class="fas fa-calendar-alt"></i>Le $result.DateStart</p>#end
- 
- 
- </div>
- </div>
- </a>
- #end
- #end</div>
- </div>
-
-</div>
 </div>
 
 ```
 
 ## CSS
 ```css
-.expert-render-mode div.events {
- display: inline-block;
-}
-.expert-render-mode .card {
- height: 250px;
-}
-.expert-render-mode .card img {
- height: 150px; 
- width: 100%;
- object-fit: cover;
-}
-.expert-render-mode .card-body {
- padding: 10px 0;
-}
-.expert-render-mode .card-title {
- font-weight: bold;
- /* height: 3rem;*/
-}
-.expert-render-mode p {
- color: #666;
- font-size: 12px;
- margin: 5px 0;
-}
-.expert-render-mode p i {
- margin-right: 5px;
+.event-card {
+ float:left;
+ margin: 5px 5px;
+ width:245px;
+height:430px;
+ padding: 10px;
+ position:relative;
+ color:white;
+ background-color:#000;
+ line-height: 1em; 
+ transition: transform .2s 
 }
 
-.expert-render-mode .nav.nav-tabs {
- margin-top: 0;
- border-bottom: transparent;
+.event-card:hover {
+ transform: scale(1.05);
 }
-.expert-render-mode .nav-tabs > li {
- background-color: transparent;
- padding: 10px 14px;
+.event-card-new {
+ font-size:12px;
+ position:absolute;
+ top:0px;
+ right:0px;
+ height:20px;
+ background-color:#ed220b;
+ border:none;
+ margin:0;
+ padding-top:5px;
+ padding-right:5px;
+ padding-left:5px;
+ text-align:right;
 }
-.expert-render-mode .nav-tabs > li > a {
- font-size: 14px;
- padding: 0 0 10px 0;
- /*border-bottom: 2px solid #333;*/
- text-transform: normal;
- background-color: transparent;
+.event-card-creation {
+ font-size:12px;
+ position:absolute;
+ top:0px;
+ right:0px;
+ height:20px;
+ background-color:#60d836;
+ border:none;
+ margin:0;
+ padding-top:5px;
+ padding-right:5px;
+ padding-left:5px;
+ text-align:right;
 }
-.expert-render-mode .nav-tabs > li > a:hover {
- color: #4B494A;
+
+.event-card-premiere {
+ font-size:12px;
+ position:absolute;
+ top:0px;
+ right:0px;
+ height:20px;
+ background-color:#ff9300;
+ border:none;
+ margin:0;
+ padding-top:5px;
+ padding-right:5px;
+ padding-left:5px;
+ text-align:right;
 }
-.expert-render-mode .nav-tabs > li.active > a, .expert-render-mode .nav-tabs > li.active > a:hover, .expert-render-mode .nav-tabs > li.active > a:focus {
- background-color: transparent;
- border-color: transparent;
- border-bottom: 2px solid #e81b40;
- border-radius: 0;
- color: #e81b40;
+
+.event-card-title {
+ font-size:23px;
+ position:absolute;
+ top:35px;
+ line-height:1em;
+ font-weight:bold;
 }
-.expert-render-mode .tab-content {
- background-color: transparent;
- color: #4B494A;
- font-size: 16px;
- padding: 20px 0 0;
+.event-card-comp {
+ font-size:23px;
+ position:absolute;
+ top:118px;
+ line-height:1em;
+ font-weight:bold;
 }
+
+.event-card-author {
+ font-size:18px;
+ line-height:1em;
+ position:absolute;
+ top:155px;
+}
+.event-card-location {
+ font-size:18px;
+ line-height:1em;
+ position:absolute;
+ top:190px;
+}
+.event-card-date {
+ font-size:32px;
+ position:absolute;
+ top:260px; 
+ font-weight:bold;
+}
+.event-card-hour {
+ font-size:24px;
+ position:absolute;
+ top:295px; 
+}
+
+.events-cards-content {
+ /*width:850px;*/
+}
+
+.event-card-type {
+ bottom:12px;
+ position:absolute;
+ font-size:12px
+}
+
 
 ```
