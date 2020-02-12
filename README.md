@@ -6,6 +6,8 @@ This repository makes it possible to share display templates between Syracuse us
 
 List of current shared templates :
 * [Display agenda events by month](agenda/programmation-par-mois/template.md)
+* [Display agenda events into mosaic table](agenda/a-venir-mosaique-tableau/template.md)
+
 
 
 # How to contribute
