@@ -13,7 +13,7 @@ This template display events in a month view tabs.
 
 ## Preview
 
-![alt text](https://github.com/SyracuseWorld/capture-render/blob/master/agenda/programmation-par-mois/preview.png "Démo")
+![alt text](https://github.com/SyracuseWorld/capture-render/blob/master/dr/masonry/preview.gif "Démo")
 
 
 ## HTML
